@@ -86,6 +86,7 @@ enum FState {
 ///  * [FPlayer.onBufferPosUpdate]
 ///  * [FPlayer.onCurrentPosUpdate]
 ///  * [FPlayer.onBufferStateUpdate]
+///  * [FPlayer.onPlayerStateUpdate]
 @immutable
 class FValue {
   /// Indicates if the player is ready

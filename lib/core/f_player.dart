@@ -89,6 +89,11 @@ class FPlayer extends ChangeNotifier implements ValueListenable<FValue> {
   final Completer<int> _nativeSetup;
   Completer<Uint8List>? _snapShot;
 
+  final StreamController<FState> _playerStateController =
+      StreamController.broadcast();
+
+  Stream<FState> get onPlayerStateUpdate => _playerStateController.stream;
+
   FPlayer()
       : _nativeSetup = Completer(),
         _value = const FValue.uninitialized(),
@@ -505,6 +510,7 @@ class FPlayer extends ChangeNotifier implements ValueListenable<FValue> {
             : state;
 
         if (fpState != oldState) {
+          _playerStateController.add(fpState);
           FLog.i("$this state changed to $fpState <= $oldState");
           FException? fException =
               (fpState != FState.error) ? FException.noException : null;
